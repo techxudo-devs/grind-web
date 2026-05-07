@@ -114,7 +114,7 @@ const dharVideos: DharCard[] = [
     rotation: 3,
     position: "lg:-translate-y-3",
     z: "z-20",
-    url: "#",
+    url: "https://www.facebook.com/reel/1866947627334438/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e",
   },
   {
     src: `/dhar-vid14.mp4`,
@@ -122,7 +122,7 @@ const dharVideos: DharCard[] = [
     rotation: -3,
     position: "lg:-translate-y-4",
     z: "z-20",
-    url: "#",
+    url: "https://www.facebook.com/reel/1653526488983614/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e",
   },
   {
     src: `/dhar-vid15.mp4`,
@@ -130,7 +130,7 @@ const dharVideos: DharCard[] = [
     rotation: 5,
     position: "lg:translate-y-2",
     z: "z-30",
-    url: "#",
+    url: "https://www.facebook.com/reel/1374677124586380/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e",
   },
   {
     src: `/dhar-vid16.mp4`,
@@ -138,7 +138,7 @@ const dharVideos: DharCard[] = [
     rotation: 3,
     position: "lg:-translate-y-3",
     z: "z-20",
-    url: "#",
+    url: "https://www.facebook.com/reel/777540368542835/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e",
   },
   {
     src: `/dhar-vid17.mp4`,
@@ -146,7 +146,7 @@ const dharVideos: DharCard[] = [
     rotation: -3,
     position: "lg:-translate-y-4",
     z: "z-20",
-    url: "#",
+    url: "https://www.facebook.com/reel/967316185707268/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e",
   },
   {
     src: `/dhar-vid18.mp4`,
@@ -154,7 +154,7 @@ const dharVideos: DharCard[] = [
     rotation: 5,
     position: "lg:translate-y-2",
     z: "z-30",
-    url: "#",
+    url: "https://www.facebook.com/reel/2157316641787332/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e",
   },
   {
     src: `/dhar-vid19.mp4`,
@@ -162,7 +162,7 @@ const dharVideos: DharCard[] = [
     rotation: 3,
     position: "lg:-translate-y-3",
     z: "z-20",
-    url: "#",
+    url: "https://www.facebook.com/reel/1584611205930844/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e",
   },
   {
     src: `/dhar-vid20.mp4`,
@@ -170,7 +170,7 @@ const dharVideos: DharCard[] = [
     rotation: -3,
     position: "lg:-translate-y-4",
     z: "z-20",
-    url: "#",
+    url: "https://www.facebook.com/reel/1677144660298378/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e",
   },
   {
     src: `/dhar-vid21.mp4`,
@@ -178,7 +178,7 @@ const dharVideos: DharCard[] = [
     rotation: 5,
     position: "lg:translate-y-2",
     z: "z-30",
-    url: "#",
+    url: "https://www.facebook.com/reel/1533301131544897/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e",
   },
 ];
 
