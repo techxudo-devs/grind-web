@@ -13,28 +13,28 @@ type DharCard = {
 
 const dharVideos: DharCard[] = [
   {
-    src: `/dhar-vid1.mp4`,
+    src: `/dhar-vid15.mp4`,
     title: `Dhar Vid 1`,
     rotation: 3,
     position: "lg:-translate-y-3",
     z: "z-20",
-    url: "https://www.facebook.com/reel/3106151496255646/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Video 1 URL
+    url: "https://www.facebook.com/reel/1374677124586380/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Video 15 URL (Moved to top)
   },
   {
-    src: `/dhar-vid2.mp4`,
+    src: `/dhar-vid18.mp4`,
     title: `Dhar Vid 2`,
     rotation: -3,
     position: "lg:-translate-y-4",
     z: "z-20",
-    url: "https://www.facebook.com/reel/1624580525651841/?fs=e&mibextid=wwXIfr&fs=e", // Video 2 URL
+    url: "https://www.facebook.com/reel/2157316641787332/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Video 18 URL (Moved to top)
   },
   {
-    src: `/dhar-vid3.mp4`,
+    src: `/dhar-vid9.mp4`,
     title: `Dhar Vid 3`,
     rotation: 5,
     position: "lg:translate-y-2",
     z: "z-30",
-    url: "https://www.facebook.com/reel/1534439230974768/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Video 3 URL
+    url: "https://www.facebook.com/reel/1518571199689824/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Video 9 URL (Moved to top)
   },
   {
     src: `/dhar-vid4.mp4`,
@@ -77,12 +77,12 @@ const dharVideos: DharCard[] = [
     url: "https://www.facebook.com/reel/2000749630506015/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Video 8 URL
   },
   {
-    src: `/dhar-vid9.mp4`,
+    src: `/dhar-vid3.mp4`,
     title: `Dhar Vid 9`,
     rotation: 5,
     position: "lg:translate-y-2",
     z: "z-30",
-    url: "https://www.facebook.com/reel/1518571199689824/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Video 9 URL
+    url: "https://www.facebook.com/reel/1534439230974768/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Original Vid 3 URL
   },
   {
     src: `/dhar-vid10.mp4`,
@@ -125,12 +125,12 @@ const dharVideos: DharCard[] = [
     url: "https://www.facebook.com/reel/1653526488983614/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e",
   },
   {
-    src: `/dhar-vid15.mp4`,
+    src: `/dhar-vid1.mp4`,
     title: `Dhar Vid 15`,
     rotation: 5,
     position: "lg:translate-y-2",
     z: "z-30",
-    url: "https://www.facebook.com/reel/1374677124586380/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e",
+    url: "https://www.facebook.com/reel/3106151496255646/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Original Vid 1 URL
   },
   {
     src: `/dhar-vid16.mp4`,
@@ -149,12 +149,12 @@ const dharVideos: DharCard[] = [
     url: "https://www.facebook.com/reel/967316185707268/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e",
   },
   {
-    src: `/dhar-vid18.mp4`,
+    src: `/dhar-vid2.mp4`,
     title: `Dhar Vid 18`,
     rotation: 5,
     position: "lg:translate-y-2",
     z: "z-30",
-    url: "https://www.facebook.com/reel/2157316641787332/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e",
+    url: "https://www.facebook.com/reel/1624580525651841/?fs=e&mibextid=wwXIfr&fs=e", // Original Vid 2 URL
   },
   {
     src: `/dhar-vid19.mp4`,
