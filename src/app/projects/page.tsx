@@ -3,6 +3,7 @@
 import React from "react";
 import Navbar2 from "@/components/Home/Navbar2";
 import Image from "next/image";
+import Link from "next/link";
 
 const dharVideos = [
   { src: "/dhar-vid1.mp4", url: "https://www.facebook.com/reel/3106151496255646/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e" },
@@ -63,9 +64,11 @@ const ProjectsPage = () => {
       
       {/* Dhar Mann Section */}
       <section className="mb-14">
+      <Link href="/dhar-man">
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-lime font-black uppercase tracking-tighter text-center mb-12 italic">
           Dhar Mann
         </h2>
+        </Link>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {dharVideos.map((item, index) => (
             <a key={index} href={item.url} target="_blank" rel="noopener noreferrer" className="block aspect-square bg-gray-900 rounded-lg overflow-hidden relative group border border-white/10">
@@ -87,9 +90,11 @@ const ProjectsPage = () => {
 
       {/* Employee of the Year Section */}
       <section className="mb-14">
+        <Link href="/employee-of-the-year">
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-lime font-black uppercase tracking-tighter text-center mb-12 italic">
           Employee <span className="italic">of the Year</span>
         </h2>
+        </Link>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {empMedia.map((item, index) => (
             <div key={index} className="aspect-square bg-gray-900 rounded-lg overflow-hidden relative border border-white/10">
@@ -117,9 +122,11 @@ const ProjectsPage = () => {
 
       {/* The Road Section */}
       <section>
+        <Link href="the-road">
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-lime font-black uppercase tracking-tighter text-center mb-12 italic">
           The <span className="italic">Road</span>
         </h2>
+        </Link>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {roadMedia.map((item, index) => (
             <div key={index} className="aspect-square bg-gray-900 rounded-lg overflow-hidden relative border border-white/10">
