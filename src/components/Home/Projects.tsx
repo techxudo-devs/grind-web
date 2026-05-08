@@ -82,16 +82,20 @@ const Projects = () => {
       title: "Dhar Man",
       tag: "Episodes",
       image:
-        "/dharman.JPG",
+        "/dhar8.png",
       color: "#000",
       offset: "translate-y-0 md:translate-y-0",
+      imageClassName: "object-bottom",
+      imageStyle: { objectPosition: "center bottom" },
+      imagePositionClassName: "bottom-0 left-0 inset-x-0 h-full -translate-y-0 md:-translate-y-16",
+      imageWrapperClassName: "bg-[#EBEBEB]",
       href: "/dhar-man",
     },
     {
       title: "Employee Of The Year",
       tag: "Posters",
       image:
-        "eoty.jpg",
+        "/eoty.jpg",
       color: "#000",
       offset: "translate-y-0 md:translate-y-0",
       href: "/employee-of-the-year",
