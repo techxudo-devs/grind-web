@@ -1,8 +1,33 @@
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Home/Navbar2';
 import Image from 'next/image'
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 
 const GalleryPage = () => {
-  const images = [
+  const [sanityImages, setSanityImages] = useState<(string | null)[]>([]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const data = await client.fetch('*[_type == "galleryContent"][0]');
+        if (data) {
+          const imgs = Array.from({ length: 12 }, (_, i) => {
+            const img = data[`galleryImg${i + 1}`];
+            return img ? urlFor(img).url() : null;
+          });
+          setSanityImages(imgs);
+        }
+      } catch (error) {
+        console.error("Error fetching gallery images from Sanity:", error);
+      }
+    };
+    fetchImages();
+  }, []);
+
+  const defaultImages = [
     "/gallery1.JPG",
     "/gallery2.JPG",
     "/gallery3.JPG",
@@ -16,6 +41,8 @@ const GalleryPage = () => {
     "/gallery11.JPG",
     "/gallery12.JPG",
   ];
+
+  const displayImages = defaultImages.map((src, idx) => sanityImages[idx] || src);
 
   return (
     <main className="min-h-screen bg-black text-white px-4 py-10 md:px-10 lg:pb-10 pt-40">
@@ -32,7 +59,7 @@ const GalleryPage = () => {
       </header>
 
       <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
-        {images.map((src, index) => (
+        {displayImages.map((src, index) => (
           <div 
             key={index} 
             className="relative group overflow-hidden break-inside-avoid rounded-sm bg-zinc-900"

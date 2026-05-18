@@ -1,14 +1,67 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
 import Navbar2 from "@/components/Home/Navbar2";
+import { createClient } from "next-sanity";
+import imageUrlBuilder from "@sanity/image-url";
+import { projectId, dataset, apiVersion } from "../../sanity/env";
+
+const sanityClient = createClient({
+  projectId,
+  dataset,
+  apiVersion,
+  useCdn: true,
+});
+
+const builder = imageUrlBuilder(sanityClient);
+function urlFor(source: any) {
+  return source ? builder.image(source).url() : "";
+}
 
 const ProjectPage = () => {
-  const images = [
+  // Fallback defaults jo aap kay original assets thay
+  const [videoSrc, setVideoSrc] = useState<string>("/empVid-compressed.mp4");
+  const [images, setImages] = useState<string[]>([
     "/EOTY-1.jpeg",
     "/EOTY-2.jpeg",
     "/EOTY-3.jpeg",
     "/EOTY-4.jpeg",
-  ];
+  ]);
+
+  useEffect(() => {
+    const fetchMedia = async () => {
+      try {
+        const data = await sanityClient.fetch(
+          `*[_type == "employeeYearContent"][0]{
+            "videoUrl": mainVideo.asset->url,
+            image1,
+            image2,
+            image3,
+            image4
+          }`
+        );
+
+        if (data) {
+          // Video check aur replace logic
+          if (data.videoUrl) {
+            setVideoSrc(data.videoUrl);
+          }
+
+          // Images check aur replace logic
+          setImages([
+            urlFor(data.image1) || "/EOTY-1.jpeg",
+            urlFor(data.image2) || "/EOTY-2.jpeg",
+            urlFor(data.image3) || "/EOTY-3.jpeg",
+            urlFor(data.image4) || "/EOTY-4.jpeg",
+          ]);
+        }
+      } catch (error) {
+        console.error("Sanity media fetch karne main error aya:", error);
+      }
+    };
+
+    fetchMedia();
+  }, []);
 
   return (
     <main className="min-h-screen bg-black text-white px-6 md:px-12 lg:px-20 pt-40">
@@ -92,7 +145,7 @@ const ProjectPage = () => {
           {/* Full-width video at top */}
           <div className="w-full bg-gray-200 overflow-hidden rounded-sm">
             <video
-              src="/empVid-compressed.mp4"
+              src={videoSrc}
               className="w-full h-auto aspect-video object-cover"
               muted
               autoPlay

@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, X } from "lucide-react";
 import Image from "next/image";
 import Navbar2 from "@/components/Home/Navbar2";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 
 const faqData = [
   {
@@ -51,8 +53,39 @@ const faqData = [
 
 const ProjectPage = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(0); // First one open by default
+  const [roadImages, setRoadImages] = useState<(string | null)[]>([]);
+  const [castImages, setCastImages] = useState<(string | null)[]>([]);
 
-  const roadImages = [
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const data = await client.fetch('*[_type == "theRoadContent"][0]');
+        
+        if (data) {
+          // Extract road images (16 images)
+          const roads = Array.from({ length: 16 }, (_, i) => {
+            const img = data[`roadImg${i + 1}`];
+            return img ? urlFor(img).url() : null;
+          });
+          
+          // Extract cast images (5 images)
+          const casts = Array.from({ length: 5 }, (_, i) => {
+            const img = data[`castImg${i + 1}`];
+            return img ? urlFor(img).url() : null;
+          });
+          
+          setRoadImages(roads);
+          setCastImages(casts);
+        }
+      } catch (error) {
+        console.error("Error fetching images from Sanity:", error);
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  const defaultRoadImages = [
     "/road5.jpg",
     "/road1.jpeg",
     "/road2.jpg",
@@ -70,13 +103,16 @@ const ProjectPage = () => {
     "/road15.jpg",
     "/road16.jpg",
   ];
-  const castImages = [
+  const defaultCastImages = [
     "/cast1.jpeg",
     "/cast2.jpg",
     "/cast3.jpeg",
     "/cast4.JPEG",
     "/cast5.jpeg",
   ];
+
+  const displayRoadImages = defaultRoadImages.map((src, idx) => roadImages[idx] || src);
+  const displayCastImages = defaultCastImages.map((src, idx) => castImages[idx] || src);
 
   return (
     <main className="min-h-screen bg-black text-white selection:bg-blue-500/30">
@@ -172,7 +208,7 @@ const ProjectPage = () => {
           Visual Journey
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {roadImages.map((src, idx) => (
+          {displayRoadImages.map((src, idx) => (
             <motion.div
               key={idx}
               whileHover={{ scale: 0.98 }}
@@ -196,7 +232,7 @@ const ProjectPage = () => {
           The Cast
         </h2>
         <div className="flex flex-wrap justify-center gap-4 sm:gap-8">
-          {castImages.map((src, idx) => (
+          {displayCastImages.map((src, idx) => (
             <div
               key={idx}
               className="flex flex-col items-center gap-2"

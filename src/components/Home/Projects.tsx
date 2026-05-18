@@ -1,8 +1,24 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { createClient } from "next-sanity";
+import imageUrlBuilder from "@sanity/image-url";
+import { projectId, dataset, apiVersion } from "../../sanity/env";
+
+// Sanity Client setup
+const sanityClient = createClient({
+  projectId,
+  dataset,
+  apiVersion,
+  useCdn: true,
+});
+
+const builder = imageUrlBuilder(sanityClient);
+function urlFor(source: any) {
+  return source ? builder.image(source).url() : "";
+}
 
 interface ProjectCardProps {
   image: string;
@@ -36,7 +52,7 @@ const ProjectCard = ({
     >
       <div className={`absolute inset-0 ${imageWrapperClassName || ""}`}>
         <img
-        loading="lazy"
+          loading="lazy"
           src={image}
           alt={title}
           className={`absolute h-full w-full object-cover ${imagePositionClassName || "inset-0"} ${imageClassName || ""}`}
@@ -68,21 +84,54 @@ const ProjectCard = ({
   );
 
   if (href) {
-    return <Link href={href} onClick={() => window.scrollTo(0, 0)}>
-      {content}
-    </Link>;
+    return (
+      <Link href={href} onClick={() => window.scrollTo(0, 0)}>
+        {content}
+      </Link>
+    );
   }
 
   return content;
 };
 
 const Projects = () => {
+  const [sanityImages, setSanityImages] = useState<{
+    dharMan?: string;
+    eoty?: string;
+    theRoad?: string;
+  }>({});
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const data = await sanityClient.fetch(
+          `*[_type == "projectImages"][0]{
+            dharManImage,
+            employeeOfTheYearImage,
+            theRoadImage
+          }`
+        );
+
+        if (data) {
+          setSanityImages({
+            dharMan: urlFor(data.dharManImage),
+            eoty: urlFor(data.employeeOfTheYearImage),
+            theRoad: urlFor(data.theRoadImage),
+          });
+        }
+      } catch (error) {
+        console.error("Sanity images fetch karne main error aya:", error);
+      }
+    };
+
+    fetchImages();
+  }, []);
+
   const projectData = [
     {
       title: "Dhar Man",
       tag: "Episodes",
-      image:
-        "/dhar8.png",
+      image: sanityImages.dharMan || "/dhar8.png",
       color: "#000",
       offset: "translate-y-0 md:translate-y-0",
       imageClassName: "object-bottom",
@@ -94,8 +143,7 @@ const Projects = () => {
     {
       title: "Employee Of The Year",
       tag: "Posters",
-      image:
-        "/eoty.jpg",
+      image: sanityImages.eoty || "/eoty.jpg",
       color: "#000",
       offset: "translate-y-0 md:translate-y-0",
       href: "/employee-of-the-year",
@@ -103,8 +151,7 @@ const Projects = () => {
     {
       title: "The Road",
       tag: "Adventures",
-      image:
-        "the-road.png",
+      image: sanityImages.theRoad || "/the-road.png",
       color: "#000",
       offset: "translate-y-0",
       imageClassName: "object-bottom",

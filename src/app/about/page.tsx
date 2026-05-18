@@ -1,6 +1,30 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Navbar2 from "@/components/Home/Navbar2";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 
 const AboutPage = () => {
+  const [sanityImage, setSanityImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        const data = await client.fetch('*[_type == "aboutPageContent"][0]');
+        if (data?.mainImage) {
+          setSanityImage(urlFor(data.mainImage).url());
+        }
+      } catch (error) {
+        console.error("Error fetching about image from Sanity:", error);
+      }
+    };
+    fetchImage();
+  }, []);
+
+  const defaultImage = "/kadir.jpg";
+  const displayImage = sanityImage || defaultImage;
+
   return (
     <main className="min-h-screen bg-black px-4 text-white sm:px-8 md:px-10 pb-10">
         <Navbar2 />
@@ -8,7 +32,7 @@ const AboutPage = () => {
         <div className="flex w-full justify-center">
           <img
           loading="lazy"
-            src="/kadir.jpg"
+            src={displayImage}
             alt="Portrait of Kadir"
             className="h-auto max-h-[450px] w-auto max-w-full rounded-[20px] border border-white/10 bg-white/5 object-contain"
           />

@@ -1,6 +1,17 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Navbar2 from "@/components/Home/Navbar2";
 import WorkCards from "@/components/Home/ProjectCards";
+import { createClient } from "next-sanity";
+import { projectId, dataset, apiVersion } from "../../sanity/env";
+
+const sanityClient = createClient({
+  projectId,
+  dataset,
+  apiVersion,
+  useCdn: true,
+});
 
 type DharCard = {
   src: string;
@@ -11,183 +22,220 @@ type DharCard = {
   url: string;
 };
 
-const dharVideos: DharCard[] = [
-  {
-    src: `/dhar-vid15.mp4`,
-    title: `Dhar Vid 1`,
-    rotation: 3,
-    position: "lg:-translate-y-3",
-    z: "z-20",
-    url: "https://www.facebook.com/reel/1374677124586380/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Video 15 URL (Moved to top)
-  },
-  {
-    src: `/dhar-vid18.mp4`,
-    title: `Dhar Vid 2`,
-    rotation: -3,
-    position: "lg:-translate-y-4",
-    z: "z-20",
-    url: "https://www.facebook.com/reel/2157316641787332/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Video 18 URL (Moved to top)
-  },
-  {
-    src: `/dhar-vid9.mp4`,
-    title: `Dhar Vid 3`,
-    rotation: 5,
-    position: "lg:translate-y-2",
-    z: "z-30",
-    url: "https://www.facebook.com/reel/1518571199689824/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Video 9 URL (Moved to top)
-  },
-  {
-    src: `/dhar-vid4.mp4`,
-    title: `Dhar Vid 4`,
-    rotation: 3,
-    position: "lg:-translate-y-3",
-    z: "z-20",
-    url: "https://www.facebook.com/reel/753940794236269/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Video 4 URL
-  },
-  {
-    src: `/dhar-vid5.mp4`,
-    title: `Dhar Vid 5`,
-    rotation: -3,
-    position: "lg:-translate-y-4",
-    z: "z-20",
-    url: "https://www.facebook.com/reel/895100943133054/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Video 5 URL
-  },
-  {
-    src: `/dhar-vid6.mp4`,
-    title: `Dhar Vid 6`,
-    rotation: 5,
-    position: "lg:translate-y-2",
-    z: "z-30",
-    url: "https://www.facebook.com/reel/1226322962968406/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Video 6 URL
-  },
-  {
-    src: `/dhar-vid7.mp4`,
-    title: `Dhar Vid 7`,
-    rotation: 3,
-    position: "lg:-translate-y-3",
-    z: "z-20",
-    url: "https://www.facebook.com/reel/4722349194659661/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Video 7 URL
-  },
-  {
-    src: `/dhar-vid8.mp4`,
-    title: `Dhar Vid 8`,
-    rotation: -3,
-    position: "lg:-translate-y-4",
-    z: "z-20",
-    url: "https://www.facebook.com/reel/2000749630506015/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Video 8 URL
-  },
-  {
-    src: `/dhar-vid3.mp4`,
-    title: `Dhar Vid 9`,
-    rotation: 5,
-    position: "lg:translate-y-2",
-    z: "z-30",
-    url: "https://www.facebook.com/reel/1534439230974768/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Original Vid 3 URL
-  },
-  {
-    src: `/dhar-vid10.mp4`,
-    title: `Dhar Vid 10`,
-    rotation: 3,
-    position: "lg:-translate-y-3",
-    z: "z-20",
-    url: "https://www.facebook.com/reel/1937476916856780/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Video 10 URL
-  },
-  {
-    src: `/dhar-vid11.mp4`,
-    title: `Dhar Vid 11`,
-    rotation: -3,
-    position: "lg:-translate-y-4",
-    z: "z-20",
-    url: "https://www.facebook.com/reel/1467796688185164/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Video 11 URL
-  },
-  {
-    src: `/dhar-vid12.mp4`,
-    title: `Dhar Vid 12`,
-    rotation: 5,
-    position: "lg:translate-y-2",
-    z: "z-30",
-    url: "https://www.facebook.com/reel/1952167442062810/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Video 12 URL
-  },
-  {
-    src: `/dhar-vid13.mp4`,
-    title: `Dhar Vid 13`,
-    rotation: 3,
-    position: "lg:-translate-y-3",
-    z: "z-20",
-    url: "https://www.facebook.com/reel/1866947627334438/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e",
-  },
-  {
-    src: `/dhar-vid14.mp4`,
-    title: `Dhar Vid 14`,
-    rotation: -3,
-    position: "lg:-translate-y-4",
-    z: "z-20",
-    url: "https://www.facebook.com/reel/1653526488983614/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e",
-  },
-  {
-    src: `/dhar-vid1.mp4`,
-    title: `Dhar Vid 15`,
-    rotation: 5,
-    position: "lg:translate-y-2",
-    z: "z-30",
-    url: "https://www.facebook.com/reel/3106151496255646/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e", // Original Vid 1 URL
-  },
-  {
-    src: `/dhar-vid16.mp4`,
-    title: `Dhar Vid 16`,
-    rotation: 3,
-    position: "lg:-translate-y-3",
-    z: "z-20",
-    url: "https://www.facebook.com/reel/777540368542835/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e",
-  },
-  {
-    src: `/dhar-vid17.mp4`,
-    title: `Dhar Vid 17`,
-    rotation: -3,
-    position: "lg:-translate-y-4",
-    z: "z-20",
-    url: "https://www.facebook.com/reel/967316185707268/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e",
-  },
-  {
-    src: `/dhar-vid2.mp4`,
-    title: `Dhar Vid 18`,
-    rotation: 5,
-    position: "lg:translate-y-2",
-    z: "z-30",
-    url: "https://www.facebook.com/reel/1624580525651841/?fs=e&mibextid=wwXIfr&fs=e", // Original Vid 2 URL
-  },
-  {
-    src: `/dhar-vid19.mp4`,
-    title: `Dhar Vid 19`,
-    rotation: 3,
-    position: "lg:-translate-y-3",
-    z: "z-20",
-    url: "https://www.facebook.com/reel/1584611205930844/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e",
-  },
-  {
-    src: `/dhar-vid20.mp4`,
-    title: `Dhar Vid 20`,
-    rotation: -3,
-    position: "lg:-translate-y-4",
-    z: "z-20",
-    url: "https://www.facebook.com/reel/1677144660298378/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e",
-  },
-  {
-    src: `/dhar-vid21.mp4`,
-    title: `Dhar Vid 21`,
-    rotation: 5,
-    position: "lg:translate-y-2",
-    z: "z-30",
-    url: "https://www.facebook.com/reel/1533301131544897/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e",
-  },
-];
-
-const chunkedCards: DharCard[][] = [];
-for (let index = 0; index < dharVideos.length; index += 3) {
-  chunkedCards.push(dharVideos.slice(index, index + 3));
-}
-
 const Work = () => {
+  // Aap ka exact original array configuration
+  const [dharVideos, setDharVideos] = useState<DharCard[]>([
+    {
+      src: `/dhar-vid15.mp4`,
+      title: `Dhar Vid 1`,
+      rotation: 3,
+      position: "lg:-translate-y-3",
+      z: "z-20",
+      url: "https://facebook.com",
+    },
+    {
+      src: `/dhar-vid18.mp4`,
+      title: `Dhar Vid 2`,
+      rotation: -3,
+      position: "lg:-translate-y-4",
+      z: "z-20",
+      url: "https://facebook.com",
+    },
+    {
+      src: `/dhar-vid9.mp4`,
+      title: `Dhar Vid 3`,
+      rotation: 5,
+      position: "lg:translate-y-2",
+      z: "z-30",
+      url: "https://facebook.com",
+    },
+    {
+      src: `/dhar-vid4.mp4`,
+      title: `Dhar Vid 4`,
+      rotation: 3,
+      position: "lg:-translate-y-3",
+      z: "z-20",
+      url: "https://facebook.com",
+    },
+    {
+      src: `/dhar-vid5.mp4`,
+      title: `Dhar Vid 5`,
+      rotation: -3,
+      position: "lg:-translate-y-4",
+      z: "z-20",
+      url: "https://facebook.com",
+    },
+    {
+      src: `/dhar-vid6.mp4`,
+      title: `Dhar Vid 6`,
+      rotation: 5,
+      position: "lg:translate-y-2",
+      z: "z-30",
+      url: "https://facebook.com",
+    },
+    {
+      src: `/dhar-vid7.mp4`,
+      title: `Dhar Vid 7`,
+      rotation: 3,
+      position: "lg:-translate-y-3",
+      z: "z-20",
+      url: "https://facebook.com",
+    },
+    {
+      src: `/dhar-vid8.mp4`,
+      title: `Dhar Vid 8`,
+      rotation: -3,
+      position: "lg:-translate-y-4",
+      z: "z-20",
+      url: "https://facebook.com",
+    },
+    {
+      src: `/dhar-vid3.mp4`,
+      title: `Dhar Vid 9`,
+      rotation: 5,
+      position: "lg:translate-y-2",
+      z: "z-30",
+      url: "https://facebook.com",
+    },
+    {
+      src: `/dhar-vid10.mp4`,
+      title: `Dhar Vid 10`,
+      rotation: 3,
+      position: "lg:-translate-y-3",
+      z: "z-20",
+      url: "https://facebook.com",
+    },
+    {
+      src: `/dhar-vid11.mp4`,
+      title: `Dhar Vid 11`,
+      rotation: -3,
+      position: "lg:-translate-y-4",
+      z: "z-20",
+      url: "https://facebook.com",
+    },
+    {
+      src: `/dhar-vid12.mp4`,
+      title: `Dhar Vid 12`,
+      rotation: 5,
+      position: "lg:translate-y-2",
+      z: "z-30",
+      url: "https://facebook.com",
+    },
+    {
+      src: `/dhar-vid13.mp4`,
+      title: `Dhar Vid 13`,
+      rotation: 3,
+      position: "lg:-translate-y-3",
+      z: "z-20",
+      url: "https://facebook.com",
+    },
+    {
+      src: `/dhar-vid14.mp4`,
+      title: `Dhar Vid 14`,
+      rotation: -3,
+      position: "lg:-translate-y-4",
+      z: "z-20",
+      url: "https://facebook.com",
+    },
+    {
+      src: `/dhar-vid1.mp4`,
+      title: `Dhar Vid 15`,
+      rotation: 5,
+      position: "lg:translate-y-2",
+      z: "z-30",
+      url: "https://facebook.com",
+    },
+    {
+      src: `/dhar-vid16.mp4`,
+      title: `Dhar Vid 16`,
+      rotation: 3,
+      position: "lg:-translate-y-3",
+      z: "z-20",
+      url: "https://facebook.com",
+    },
+    {
+      src: `/dhar-vid17.mp4`,
+      title: `Dhar Vid 17`,
+      rotation: -3,
+      position: "lg:-translate-y-4",
+      z: "z-20",
+      url: "https://facebook.com",
+    },
+    {
+      src: `/dhar-vid2.mp4`,
+      title: `Dhar Vid 18`,
+      rotation: 5,
+      position: "lg:translate-y-2",
+      z: "z-30",
+      url: "https://facebook.com",
+    },
+    {
+      src: `/dhar-vid19.mp4`,
+      title: `Dhar Vid 19`,
+      rotation: 3,
+      position: "lg:-translate-y-3",
+      z: "z-20",
+      url: "https://facebook.com",
+    },
+    {
+      src: `/dhar-vid20.mp4`,
+      title: `Dhar Vid 20`,
+      rotation: -3,
+      position: "lg:-translate-y-4",
+      z: "z-20",
+      url: "https://facebook.com",
+    },
+    {
+      src: `/dhar-vid21.mp4`,
+      title: `Dhar Vid 21`,
+      rotation: 5,
+      position: "lg:translate-y-2",
+      z: "z-30",
+      url: "https://facebook.com",
+    },
+  ]);
+
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        // Sanity say direct 21 fields ka dynamic data manga rahay hain
+        const data = await sanityClient.fetch(
+          `*[_type == "dharManVideos"][0]{
+            "v1": video1.asset->url, "v2": video2.asset->url, "v3": video3.asset->url,
+            "v4": video4.asset->url, "v5": video5.asset->url, "v6": video6.asset->url,
+            "v7": video7.asset->url, "v8": video8.asset->url, "v9": video9.asset->url,
+            "v10": video10.asset->url, "v11": video11.asset->url, "v12": video12.asset->url,
+            "v13": video13.asset->url, "v14": video14.asset->url, "v15": video15.asset->url,
+            "v16": video16.asset->url, "v17": video17.asset->url, "v18": video18.asset->url,
+            "v19": video19.asset->url, "v20": video20.asset->url, "v21": video21.asset->url
+          }`
+        );
+
+        if (data) {
+          setDharVideos((prev) =>
+            prev.map((video, idx) => {
+              const sanityUrl = data[`v${idx + 1}`];
+              return {
+                ...video,
+                // Agar Sanity field main video ho to replace kare, warna original src chalay
+                src: sanityUrl || video.src,
+              };
+            })
+          );
+        }
+      } catch (error) {
+        console.error("Sanity videos fetch karne main error aya:", error);
+      }
+    };
+
+    fetchVideos();
+  }, []);
+
+  const chunkedCards: DharCard[][] = [];
+  for (let index = 0; index < dharVideos.length; index += 3) {
+    chunkedCards.push(dharVideos.slice(index, index + 3));
+  }
+
   return (
     <div data-navbar-theme="dark" className="relative bg-black text-white pt-20">
       <Navbar2 />

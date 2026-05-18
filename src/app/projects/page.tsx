@@ -1,9 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar2 from "@/components/Home/Navbar2";
 import Image from "next/image";
 import Link from "next/link";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 
 const dharVideos = [
   { src: "/dhar-vid15.mp4", url: "https://www.facebook.com/reel/1374677124586380/?fs=e&s=TIeQ9V&fs=e&mibextid=wwXIfr&fs=e" },
@@ -58,6 +60,52 @@ const roadMedia = [
 ];
 
 const ProjectsPage = () => {
+  const [sanityDharVideos, setSanityDharVideos] = useState<(string | null)[]>([]);
+  const [sanityEmpMedia, setSanityEmpMedia] = useState<(string | null)[]>([]);
+  const [sanityRoadMedia, setSanityRoadMedia] = useState<(string | null)[]>([]);
+
+  useEffect(() => {
+    const fetchMedia = async () => {
+      try {
+        const data = await client.fetch(`*[_type == "projectsPageContent"][0]{
+          dharMannVideos[]{ "url": video.asset->url },
+          empMedia[]{ "videoUrl": video.asset->url, "imageUrl": image.asset->url },
+          roadMedia[]{ youtubeUrl, "imageUrl": image.asset->url }
+        }`);
+
+        if (data) {
+          if (data.dharMannVideos) {
+            setSanityDharVideos(data.dharMannVideos.map((v: any) => v?.url || null));
+          }
+          if (data.empMedia) {
+            setSanityEmpMedia(data.empMedia.map((m: any) => m?.videoUrl || (m?.imageUrl ? urlFor(m.imageUrl).url() : null)));
+          }
+          if (data.roadMedia) {
+            setSanityRoadMedia(data.roadMedia.map((m: any) => m?.youtubeUrl || (m?.imageUrl ? urlFor(m.imageUrl).url() : null)));
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching projects media from Sanity:", error);
+      }
+    };
+    fetchMedia();
+  }, []);
+
+  const displayDharVideos = dharVideos.map((item, idx) => ({
+    ...item,
+    src: sanityDharVideos[idx] || item.src,
+  }));
+
+  const displayEmpMedia = empMedia.map((item, idx) => ({
+    ...item,
+    src: sanityEmpMedia[idx] || item.src,
+  }));
+
+  const displayRoadMedia = roadMedia.map((item, idx) => ({
+    ...item,
+    src: sanityRoadMedia[idx] || item.src,
+  }));
+
   return (
     <main className="min-h-screen bg-black text-white px-6 md:px-12 lg:px-20 pb-20 pt-32">
       <Navbar2 />
@@ -70,7 +118,7 @@ const ProjectsPage = () => {
         </h2>
         </Link>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {dharVideos.map((item, index) => (
+          {displayDharVideos.map((item, index) => (
             <a key={index} href={item.url} target="_blank" rel="noopener noreferrer" className="block aspect-square bg-gray-900 rounded-lg overflow-hidden relative group border border-white/10">
               <video
                 src={item.src}
@@ -96,7 +144,7 @@ const ProjectsPage = () => {
         </h2>
         </Link>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {empMedia.map((item, index) => (
+          {displayEmpMedia.map((item, index) => (
             <div key={index} className="aspect-square bg-gray-900 rounded-lg overflow-hidden relative border border-white/10">
               {item.type === "video" ? (
                 <video
@@ -128,7 +176,7 @@ const ProjectsPage = () => {
         </h2>
         </Link>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {roadMedia.map((item, index) => (
+          {displayRoadMedia.map((item, index) => (
             <div key={index} className="aspect-square bg-gray-900 rounded-lg overflow-hidden relative border border-white/10">
               {item.type === "youtube" ? (
                 <iframe
@@ -155,3 +203,4 @@ const ProjectsPage = () => {
 };
 
 export default ProjectsPage;
+
